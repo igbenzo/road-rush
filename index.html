@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>ROAD RUSH</title>
   <link rel="stylesheet" href="cookin-006.css" />
 </head>
@@ -13,7 +13,7 @@
     <div class="overlay-box">
       <h1 class="game-title">ROAD RUSH</h1>
       <p class="subtitle">Top-Down Racing</p>
-      <div class="controls-info">
+      <div class="controls-info desktop-only">
         <h3>CONTROLS</h3>
         <table>
           <tr><td><kbd>W</kbd> / <kbd>↑</kbd></td><td>Accelerate</td></tr>
@@ -24,7 +24,17 @@
           <tr><td><kbd>P</kbd> / <kbd>Esc</kbd></td><td>Pause</td></tr>
         </table>
       </div>
-      <div id="bestScoreStart" class="best-score">BEST SCORE: 0</div>
+      <div class="controls-info mobile-only">
+        <h3>CONTROLS</h3>
+        <table>
+          <tr><td>⬆ Button</td><td>Accelerate</td></tr>
+          <tr><td>⬇ Button</td><td>Brake</td></tr>
+          <tr><td>⬅ ➡ Buttons</td><td>Steer</td></tr>
+          <tr><td>NITRO Button</td><td>Nitro Boost</td></tr>
+          <tr><td>⏸ Button</td><td>Pause</td></tr>
+        </table>
+      </div>
+      <div id="bestScoreStart" class="best-score">BEST SCORE: 000000</div>
       <button id="startBtn" class="btn btn-primary">START GAME</button>
     </div>
   </div>
@@ -32,8 +42,8 @@
   <!-- ── PAUSE SCREEN ── -->
   <div id="pauseScreen" class="overlay">
     <div class="overlay-box">
-      <h2>PAUSED</h2>
-      <button id="resumeBtn" class="btn btn-primary">RESUME</button>
+      <h2 class="screen-title">PAUSED</h2>
+      <button id="resumeBtn"       class="btn btn-primary">RESUME</button>
       <button id="restartBtnPause" class="btn btn-secondary">RESTART</button>
     </div>
   </div>
@@ -42,8 +52,8 @@
   <div id="gameOverScreen" class="overlay">
     <div class="overlay-box">
       <h2 class="crash-title">GAME OVER</h2>
-      <p id="finalScore"  class="final-score">SCORE: 0</p>
-      <p id="finalBest"   class="final-best" >BEST: 0</p>
+      <p id="finalScore" class="final-score">SCORE: 000000</p>
+      <p id="finalBest"  class="final-best" >BEST:  000000</p>
       <button id="restartBtn" class="btn btn-primary">PLAY AGAIN</button>
       <button id="menuBtn"    class="btn btn-secondary">MAIN MENU</button>
     </div>
@@ -52,8 +62,8 @@
   <!-- ── GAME CANVAS ── -->
   <canvas id="gameCanvas"></canvas>
 
-  <!-- ── HUD (DOM layer over canvas) ── -->
-  <div id="hud" class="hidden">
+  <!-- ── HUD (DOM layer rendered above canvas) ── -->
+  <div id="hud" class="hud-hidden">
     <div id="hudLeft">
       <div class="hud-item">SCORE <span id="hudScore">000000</span></div>
       <div class="hud-item">BEST  <span id="hudBest">000000</span></div>
@@ -66,7 +76,24 @@
         <div class="nitro-bar-wrap"><div id="nitroBar" class="nitro-bar"></div></div>
       </div>
     </div>
-    <button id="pauseBtn" title="Pause (P)">⏸</button>
+    <button id="pauseBtn" title="Pause (P / Esc)">⏸</button>
+
+    <!-- ── MOBILE TOUCH CONTROLS ── -->
+    <div id="touchControls">
+      <!-- Left cluster: D-pad -->
+      <div id="dpad">
+        <button class="tc-btn tc-up"    id="tcUp">▲</button>
+        <div class="dpad-middle">
+          <button class="tc-btn tc-left"  id="tcLeft">◀</button>
+          <button class="tc-btn tc-right" id="tcRight">▶</button>
+        </div>
+        <button class="tc-btn tc-down"  id="tcDown">▼</button>
+      </div>
+      <!-- Right cluster: Nitro -->
+      <div id="actionBtns">
+        <button class="tc-btn tc-nitro" id="tcNitro">NITRO</button>
+      </div>
+    </div>
   </div>
 
   <script src="cookin-006.js"></script>
